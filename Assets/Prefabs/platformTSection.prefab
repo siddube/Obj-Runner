@@ -425,6 +425,7 @@ GameObject:
   - component: {fileID: 3115104030126849725}
   - component: {fileID: 3834195564364368092}
   - component: {fileID: 178113324889459986}
+  - component: {fileID: 1854352867291265422}
   m_Layer: 0
   m_Name: platformTSection
   m_TagString: platformTSection
@@ -441,7 +442,7 @@ Transform:
   m_GameObject: {fileID: 3115104030127202973}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3986506, y: 1.3986506, z: 1.3986506}
   m_Children:
   - {fileID: 3115104030126849721}
   - {fileID: 3115104030126849723}
@@ -479,6 +480,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.987892, y: 1, z: 2.5017624}
   m_Center: {x: 0.014315724, y: 0, z: 3.7810202}
+--- !u!135 &1854352867291265422
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3115104030127202973}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3.23
+  m_Center: {x: 0, y: 0, z: 0.63}
 --- !u!1 &3115104030127202975
 GameObject:
   m_ObjectHideFlags: 0

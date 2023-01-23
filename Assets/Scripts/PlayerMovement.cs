@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
   [SerializeField] float jumpSpeed = 1f;
   [SerializeField] float forwardSpeed = 1f;
   public Rigidbody rb;
+  public bool canRotate = false;
+  public bool didRotate = false;
   private Vector3 sidewardVector = new Vector3(0f, 0f, 0f);
   private enum MoveForwardDir
   {
@@ -78,6 +80,9 @@ public class PlayerMovement : MonoBehaviour
 
   public void OnRotateRight()
   {
+    if (!canRotate || didRotate) { return; }
+    didRotate = true;
+    canRotate = false;
     // Rotate player to the right on pressing C
     // Unfreeze rotation to rotate player
     rb.freezeRotation = false;
@@ -87,9 +92,13 @@ public class PlayerMovement : MonoBehaviour
     ToggleForwardDirection("right");
     // Freeze player rotation again
     rb.freezeRotation = true;
+
   }
   public void OnRotateLeft()
   {
+    if (!canRotate || didRotate) { return; }
+    didRotate = true;
+    canRotate = false;
     // Rotate player to the left on pressing Z
     // Unfreeze rotation to rotate player
     rb.freezeRotation = false;
