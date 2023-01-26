@@ -40,6 +40,7 @@
      <Compile Include="Assets\Imphenzia\GradientSky\Scripts\GradientSkyCamera.cs" />
      <Compile Include="Assets\Imphenzia\GradientSky\Scripts\GradientSkyObject.cs" />
      <Compile Include="Assets\Scripts\Controls.cs" />
+     <Compile Include="Assets\Scripts\MenuController.cs" />
      <Compile Include="Assets\Scripts\PathGenerator.cs" />
      <Compile Include="Assets\Scripts\PlayerCollision.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
