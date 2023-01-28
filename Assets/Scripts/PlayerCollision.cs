@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿/* ==========================================================================================================================================
+Author: Prajwal Belagatti
+Class: Player Collision
+Description: Handles player collision
+============================================================================================================================================= */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
