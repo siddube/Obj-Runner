@@ -11,6 +11,7 @@ using UnityEngine;
 public class PathGenerator : MonoBehaviour
 {
   [SerializeField] GameObject[] platforms;
+  [SerializeField] GameObject[] obstacles;
   private GameObject PathTraveller;
   public int numOfPlatformsToGenerate = 20;
   public void Start()
@@ -40,6 +41,13 @@ public class PathGenerator : MonoBehaviour
         else
           PathTraveller.transform.Rotate(new Vector3(0, -90, 0));
         PathTraveller.transform.Translate(Vector3.forward * -10);
+      }
+
+      if (platforms[platformIndex].tag == "platformZ")
+      {
+        int obstacleIndex = Random.Range(0, obstacles.Length);
+        Vector3 obstaclePosition = new Vector3(PathTraveller.transform.position.x, 2f, PathTraveller.transform.position.z - 5);
+        GameObject logicGate = Instantiate(obstacles[obstacleIndex], obstaclePosition, PathTraveller.transform.rotation);
       }
       // Translate to move 10 units further in z axis
       PathTraveller.transform.Translate(Vector3.forward * -10);

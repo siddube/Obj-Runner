@@ -15,7 +15,17 @@ public class LogicGateMover : MonoBehaviour
   [SerializeField] float period = 2f;
   private void Start()
   {
+    SetupMovement();
+  }
+
+  private void SetupMovement()
+  {
     startingPosition = transform.position;
+    this.gameObject.transform.Rotate(new Vector3(0, 90, 90));
+    if (Random.Range(0, 2) == 0)
+      movementVector = new Vector3(0, 5, 0);
+    else
+      movementVector = new Vector3(0, 0, 5);
   }
 
   private void FixedUpdate()
