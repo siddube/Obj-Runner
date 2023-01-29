@@ -11,12 +11,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+  [SerializeField] PathGenerator path;
   [SerializeField] float sidewardSpeed = 1f;
   [SerializeField] float jumpSpeed = 1f;
   [SerializeField] float forwardSpeed = 1f;
   public Rigidbody rb;
   public bool canRotate = false;
   public bool didRotate = false;
+
   private Vector3 sidewardVector = new Vector3(0f, 0f, 0f);
   private enum MoveForwardDir
   {
@@ -88,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
     rb.freezeRotation = false;
     // Rotate player
     this.gameObject.transform.Rotate(0f, -90f, 0f, Space.Self);
+    path.SetAngleToRotateByPath(-90f);
     // Set new forward direction by passing right as parameter to denote player turned right
     ToggleForwardDirection("right");
     // Freeze player rotation again
@@ -104,6 +107,7 @@ public class PlayerMovement : MonoBehaviour
     rb.freezeRotation = false;
     // Rotate player
     this.gameObject.transform.Rotate(0f, 90f, 0f, Space.Self);
+    path.SetAngleToRotateByPath(90f);
     // Set new forward direction by passing left as parameter to denote player turned left
     ToggleForwardDirection("left");
     // Freeze player rotation again

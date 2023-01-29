@@ -10,13 +10,18 @@ using UnityEngine;
 
 public class PathGenerator : MonoBehaviour
 {
+  [SerializeField] GameObject path;
   [SerializeField] GameObject[] platforms;
   [SerializeField] GameObject[] obstacles;
   private GameObject PathTraveller;
   public int numOfPlatformsToGenerate = 20;
+
+  private int currentPathCount = 0;
+  private int pathsLeftToGenerate;
   public void Start()
   {
     // Call generate path at Start
+    pathsLeftToGenerate = numOfPlatformsToGenerate - currentPathCount;
     GeneratePath();
   }
 
@@ -25,23 +30,19 @@ public class PathGenerator : MonoBehaviour
     // Instantiate a game object to create path
     // The transform and rotation property will be used to generate path of gameobjects of different platform types in the prefabs
     PathTraveller = new GameObject("Path Traveller");
-    // Create first n platforms
-    for (int i = 0; i < numOfPlatformsToGenerate; i++)
+    // Create first n platforms with loop to generate method
+    LoopToGeneratePath(pathsLeftToGenerate);
+  }
+
+  public void LoopToGeneratePath(int numPath)
+  {
+    for (int i = 0; i < numPath; i++)
     {
+      currentPathCount += 1;
       // Get unique platform index from platform types (0 to last index) in the prefabs 
       int platformIndex = Random.Range(0, platforms.Length);
       // Instantiate the platform
       GameObject currentPlatform = Instantiate(platforms[platformIndex], PathTraveller.transform.position, PathTraveller.transform.rotation);
-      // if platform is of T intersection type
-      // Rotate the Path Traveller either in +90 or -90
-      if (platforms[platformIndex].tag == "platformTSection")
-      {
-        if (Random.Range(0, 2) == 0)
-          PathTraveller.transform.Rotate(new Vector3(0, 90, 0));
-        else
-          PathTraveller.transform.Rotate(new Vector3(0, -90, 0));
-        PathTraveller.transform.Translate(Vector3.forward * -10);
-      }
 
       // Add obstacles on platforms of platformZ type
       if (platforms[platformIndex].tag == "platformZ")
@@ -51,7 +52,22 @@ public class PathGenerator : MonoBehaviour
         GameObject logicGate = Instantiate(obstacles[obstacleIndex], obstaclePosition, PathTraveller.transform.rotation);
       }
       // Translate to move 10 units further in z axis
+
+      // if platform is of T intersection type
+      // break loop to generate path
+      // wait for player turn to start generating plaforms again in the direction the player turned 
+      if (platforms[platformIndex].tag == "platformTSection")
+      {
+        break;
+      }
       PathTraveller.transform.Translate(Vector3.forward * -10);
     }
+  }
+  public void SetAngleToRotateByPath(float angle)
+  {
+    pathsLeftToGenerate = numOfPlatformsToGenerate - currentPathCount;
+    PathTraveller.transform.Rotate(new Vector3(0, angle, 0));
+    PathTraveller.transform.Translate(Vector3.forward * -10);
+    LoopToGeneratePath(pathsLeftToGenerate);
   }
 }
