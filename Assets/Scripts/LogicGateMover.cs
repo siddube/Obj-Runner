@@ -21,7 +21,7 @@ public class LogicGateMover : MonoBehaviour
   private void SetupMovement()
   {
     startingPosition = transform.position;
-    this.gameObject.transform.Rotate(new Vector3(0, 90, 90));
+    this.gameObject.transform.Rotate(new Vector3(0, 90, 0));
     if (Random.Range(0, 2) == 0)
       movementVector = new Vector3(0, 5, 0);
     else

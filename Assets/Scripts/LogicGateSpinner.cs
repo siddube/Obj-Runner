@@ -10,10 +10,10 @@ using UnityEngine;
 
 public class LogicGateSpinner : MonoBehaviour
 {
-  [SerializeField] float xAngle = 3f;
+  [SerializeField] float spinAngle = 3f;
   private void Start()
   {
-    this.gameObject.transform.Rotate(new Vector3(0, 90, 90));
+    this.gameObject.transform.Rotate(new Vector3(0, 90, 0));
   }
   private void FixedUpdate()
   {
@@ -22,6 +22,6 @@ public class LogicGateSpinner : MonoBehaviour
 
   private void SpinObject()
   {
-    this.gameObject.transform.Rotate(new Vector3(xAngle, 0, 0));
+    this.gameObject.transform.Rotate(new Vector3(0, spinAngle, 0));
   }
 }

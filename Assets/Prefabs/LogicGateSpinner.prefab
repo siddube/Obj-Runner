@@ -291,6 +291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6277430113661254547}
   - component: {fileID: 6277430113660954546}
+  - component: {fileID: -8807904155837102132}
   m_Layer: 0
   m_Name: LogicGateSpinner
   m_TagString: Untagged
@@ -340,7 +341,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95c4c0a0df7e484db85cd076baba481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xAngle: 3
+  spinAngle: 3
+--- !u!65 &-8807904155837102132
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6277430113660954547}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.3050106, y: 1, z: 10.209639}
+  m_Center: {x: -0.018643022, y: 0, z: -0.018642426}
 --- !u!1 &6277430113660954549
 GameObject:
   m_ObjectHideFlags: 0

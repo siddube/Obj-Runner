@@ -43,10 +43,11 @@ public class PathGenerator : MonoBehaviour
         PathTraveller.transform.Translate(Vector3.forward * -10);
       }
 
+      // Add obstacles on platforms of platformZ type
       if (platforms[platformIndex].tag == "platformZ")
       {
         int obstacleIndex = Random.Range(0, obstacles.Length);
-        Vector3 obstaclePosition = new Vector3(PathTraveller.transform.position.x, 2f, PathTraveller.transform.position.z - 5);
+        Vector3 obstaclePosition = new Vector3(PathTraveller.transform.position.x, 1f, PathTraveller.transform.position.z - 5f);
         GameObject logicGate = Instantiate(obstacles[obstacleIndex], obstaclePosition, PathTraveller.transform.rotation);
       }
       // Translate to move 10 units further in z axis
