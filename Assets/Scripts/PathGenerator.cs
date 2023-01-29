@@ -43,6 +43,7 @@ public class PathGenerator : MonoBehaviour
       int platformIndex = Random.Range(0, platforms.Length);
       // Instantiate the platform
       GameObject currentPlatform = Instantiate(platforms[platformIndex], PathTraveller.transform.position, PathTraveller.transform.rotation);
+      currentPlatform.transform.parent = path.transform;
 
       // Add obstacles on platforms of platformZ type
       if (platforms[platformIndex].tag == "platformZ")
@@ -50,6 +51,7 @@ public class PathGenerator : MonoBehaviour
         int obstacleIndex = Random.Range(0, obstacles.Length);
         Vector3 obstaclePosition = new Vector3(PathTraveller.transform.position.x, 1f, PathTraveller.transform.position.z - 5f);
         GameObject logicGate = Instantiate(obstacles[obstacleIndex], obstaclePosition, PathTraveller.transform.rotation);
+        logicGate.transform.parent = path.transform;
       }
       // if platform is of T intersection type
       // break loop to generate path
