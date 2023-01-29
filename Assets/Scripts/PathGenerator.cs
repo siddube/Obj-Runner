@@ -51,8 +51,6 @@ public class PathGenerator : MonoBehaviour
         Vector3 obstaclePosition = new Vector3(PathTraveller.transform.position.x, 1f, PathTraveller.transform.position.z - 5f);
         GameObject logicGate = Instantiate(obstacles[obstacleIndex], obstaclePosition, PathTraveller.transform.rotation);
       }
-      // Translate to move 10 units further in z axis
-
       // if platform is of T intersection type
       // break loop to generate path
       // wait for player turn to start generating plaforms again in the direction the player turned 
@@ -60,6 +58,7 @@ public class PathGenerator : MonoBehaviour
       {
         break;
       }
+      // Translate to move 10 units further in z axis
       PathTraveller.transform.Translate(Vector3.forward * -10);
     }
   }

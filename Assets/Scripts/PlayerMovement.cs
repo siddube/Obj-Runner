@@ -82,6 +82,18 @@ public class PlayerMovement : MonoBehaviour
 
   public void OnRotateRight()
   {
+    ProcessRotation(-90f, "right");
+  }
+  public void OnRotateLeft()
+  {
+    ProcessRotation(90f, "left");
+  }
+
+  /* =======================================================================================================
+    Helper Functions to roate player based on input and generate path in the direction of turn
+    ========================================================================================================== */
+  public void ProcessRotation(float angle, string direction)
+  {
     if (!canRotate || didRotate) { return; }
     didRotate = true;
     canRotate = false;
@@ -89,31 +101,13 @@ public class PlayerMovement : MonoBehaviour
     // Unfreeze rotation to rotate player
     rb.freezeRotation = false;
     // Rotate player
-    this.gameObject.transform.Rotate(0f, -90f, 0f, Space.Self);
-    path.SetAngleToRotateByPath(-90f);
+    this.gameObject.transform.Rotate(0f, angle, 0f, Space.Self);
+    path.SetAngleToRotateByPath(angle);
     // Set new forward direction by passing right as parameter to denote player turned right
-    ToggleForwardDirection("right");
-    // Freeze player rotation again
-    rb.freezeRotation = true;
-
-  }
-  public void OnRotateLeft()
-  {
-    if (!canRotate || didRotate) { return; }
-    didRotate = true;
-    canRotate = false;
-    // Rotate player to the left on pressing Z
-    // Unfreeze rotation to rotate player
-    rb.freezeRotation = false;
-    // Rotate player
-    this.gameObject.transform.Rotate(0f, 90f, 0f, Space.Self);
-    path.SetAngleToRotateByPath(90f);
-    // Set new forward direction by passing left as parameter to denote player turned left
-    ToggleForwardDirection("left");
+    ToggleForwardDirection(direction);
     // Freeze player rotation again
     rb.freezeRotation = true;
   }
-
 
   /* =======================================================================================================
   Helper Functions to set forward and sideward direction based on input
