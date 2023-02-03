@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 8779928398472773994}
   - component: {fileID: 183392063281960036}
   m_Layer: 0
-  m_Name: platformZSplit
+  m_Name: PlatformZSplit
   m_TagString: platformZSplit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

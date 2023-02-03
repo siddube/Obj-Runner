@@ -755,7 +755,7 @@ GameObject:
   - component: {fileID: 1290786552697799364}
   - component: {fileID: 7991879471394427087}
   m_Layer: 0
-  m_Name: platformZThin
+  m_Name: PlatformZThin
   m_TagString: platformZThin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

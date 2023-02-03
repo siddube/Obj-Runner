@@ -427,7 +427,7 @@ GameObject:
   - component: {fileID: 178113324889459986}
   - component: {fileID: 1854352867291265422}
   m_Layer: 0
-  m_Name: platformTSection
+  m_Name: PlatformTSection
   m_TagString: platformTSection
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
