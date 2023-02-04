@@ -13,6 +13,8 @@ public class LogicGateMover : MonoBehaviour
   [SerializeField] Vector3 movementVector;
   [SerializeField][Range(0, 1)] float movementFactor;
   [SerializeField] float period = 2f;
+  private Vector3 movementVectorY = new Vector3(0, 2, 0);
+  private Vector3 movementVectorZ = new Vector3(0, 0, 5);
   private void Start()
   {
     SetupMovement();
@@ -23,9 +25,9 @@ public class LogicGateMover : MonoBehaviour
     startingPosition = transform.position;
     this.gameObject.transform.Rotate(new Vector3(0, 90, 0));
     if (Random.Range(0, 2) == 0)
-      movementVector = new Vector3(0, 5, 0);
+      movementVector = movementVectorY;
     else
-      movementVector = new Vector3(0, 0, 5);
+      movementVector = movementVectorZ;
   }
 
   private void FixedUpdate()
