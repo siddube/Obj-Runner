@@ -41,16 +41,25 @@ public class PathGenerator : MonoBehaviour
     {
       // Get unique platform index from platform types (0 to last index) in the prefabs 
       int platformIndex = Random.Range(0, platforms.Length);
-      if ((i == 0) && platforms[platformIndex].tag == "platformTSection")
-        continue;
-      currentPathCount += 1;
+      if (((i == 0) && platforms[platformIndex].tag == "platformTSection") || (i == 1) && platforms[platformIndex].tag == "platformTSection")
+      {
+        LoopToGeneratePath(pathsLeftToGenerate);
+        break;
+      }
+
       // Instantiate the platform
       GameObject currentPlatform = Instantiate(platforms[platformIndex], PathTraveller.transform.position, PathTraveller.transform.rotation);
       currentPlatform.transform.parent = path.transform;
 
       // Add obstacles on platforms of platformZ type
+
       if (platforms[platformIndex].tag == "platformZ")
       {
+        if (i == 0)
+        {
+          LoopToGeneratePath(pathsLeftToGenerate);
+          break;
+        }
         int obstacleIndex = Random.Range(0, obstacles.Length);
         PathTraveller.transform.position += obstacleVector;
         GameObject logicGate = Instantiate(obstacles[obstacleIndex], PathTraveller.transform.position, PathTraveller.transform.rotation);
@@ -60,7 +69,8 @@ public class PathGenerator : MonoBehaviour
 
       // if platform is of T intersection type
       // break loop to generate path
-      // wait for player turn to start generating plaforms again in the direction the player turned 
+      // wait for player turn to start generating plaforms again in the direction the player turned
+      currentPathCount += 1;
       if (platforms[platformIndex].tag == "platformTSection")
       {
         break;
