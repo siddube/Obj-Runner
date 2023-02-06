@@ -69,7 +69,6 @@ public class PathGenerator : MonoBehaviour
         PathTraveller.transform.position -= obstacleVector;
         logicGate.transform.parent = path.transform;
       }
-
       // if platform is of T intersection type
       // break loop to generate path
       // wait for player turn to start generating plaforms again in the direction the player turned
@@ -82,10 +81,21 @@ public class PathGenerator : MonoBehaviour
       PathTraveller.transform.Translate(Vector3.forward * -10);
     }
   }
-
   public void UpdatePath()
   {
     pathsLeftToGenerate = numOfPlatformsToGenerate - currentPathCount;
+    CheckLastPlatformAndInstantiateFinishPlatform();
+  }
+  public void SetAngleToRotateByPath(float angle)
+  {
+    DestoryOldPlatforms();
+    PathTraveller.transform.Rotate(new Vector3(0, angle, 0));
+    PathTraveller.transform.Translate(Vector3.forward * -25);
+    LoopToGeneratePath(pathsLeftToGenerate);
+  }
+
+  private void CheckLastPlatformAndInstantiateFinishPlatform()
+  {
     if (currentPathCount >= numOfPlatformsToGenerate && stopGeneratingPath == false)
     {
       Transform lastChild = path.transform.GetChild(path.transform.childCount - 1);
@@ -99,10 +109,19 @@ public class PathGenerator : MonoBehaviour
       stopGeneratingPath = true;
     }
   }
-  public void SetAngleToRotateByPath(float angle)
+  private void DestoryOldPlatforms()
   {
-    PathTraveller.transform.Rotate(new Vector3(0, angle, 0));
-    PathTraveller.transform.Translate(Vector3.forward * -25);
-    LoopToGeneratePath(pathsLeftToGenerate);
+    int delCount = path.transform.childCount;
+    int iter = 0;
+    foreach (Transform p in path.transform.GetComponentInChildren<Transform>())
+    {
+      iter++;
+      if (iter <= delCount - 2)
+      {
+        Destroy(p.gameObject);
+      }
+    }
+    Destroy(GameObject.FindGameObjectWithTag("Start"));
+    Destroy(GameObject.FindGameObjectWithTag("initPlatform"));
   }
 }
