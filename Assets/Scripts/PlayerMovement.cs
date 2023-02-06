@@ -11,6 +11,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+  public GameManager gameManager;
   [SerializeField] PathGenerator path;
   [SerializeField] float sidewardSpeed = 1f;
   [SerializeField] float jumpSpeed = 1f;
@@ -18,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
   public Rigidbody rb;
   public bool canRotate = false;
   public bool didRotate = false;
+
+  private bool isGrounded = true;
 
   private Vector3 sidewardVector = new Vector3(0f, 0f, 0f);
   private enum MoveForwardDir
@@ -31,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
   {
     // Setup rigidbody component
     SetupRigdbody();
+
   }
 
   private void FixedUpdate()
@@ -54,6 +58,10 @@ public class PlayerMovement : MonoBehaviour
   {
     // Add forces to the left and right movement with sidewardVector variable
     rb.AddForce(sidewardVector * sidewardSpeed, ForceMode.Acceleration);
+    if (this.gameObject.transform.position.y < -1)
+      gameManager.LoseGame();
+    if (this.gameObject.transform.position.y < 1.2 && this.gameObject.transform.position.y > 0)
+      isGrounded = true;
   }
 
   private void MoveForwards()
@@ -68,8 +76,8 @@ public class PlayerMovement : MonoBehaviour
     // Jump on pressing Spacebar on keyboard
     // Return if the player is already jumping
     // Checks by calculating the player's Y position of the transform 
-    if (this.gameObject.transform.position.y > 1.2) { return; }
-    rb.AddForce(transform.up * jumpSpeed, ForceMode.Impulse);
+    if (!isGrounded) { return; }
+    rb.AddForce(transform.up * jumpSpeed, ForceMode.VelocityChange);
   }
 
   public void OnMove(InputValue input)

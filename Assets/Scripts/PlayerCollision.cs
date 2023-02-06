@@ -10,9 +10,8 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-
   public PlayerMovement playerMovement;
-
+  public GameManager gameManager;
   private void Start()
   {
     playerMovement = this.GetComponent<PlayerMovement>();
@@ -21,6 +20,11 @@ public class PlayerCollision : MonoBehaviour
   {
     if (other.tag == "platformTSection" && other is SphereCollider)
       playerMovement.canRotate = true;
+
+    if (other.tag == "Finish" && other is SphereCollider)
+    {
+      gameManager.ResartGame();
+    }
   }
 
   public void OnTriggerExit(Collider other)
