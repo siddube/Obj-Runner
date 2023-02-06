@@ -58,10 +58,7 @@ public class PlayerMovement : MonoBehaviour
   {
     // Add forces to the left and right movement with sidewardVector variable
     rb.AddForce(sidewardVector * sidewardSpeed, ForceMode.Acceleration);
-    if (this.gameObject.transform.position.y < -1)
-      gameManager.LoseGame();
-    if (this.gameObject.transform.position.y < 1.2 && this.gameObject.transform.position.y > 0)
-      isGrounded = true;
+    ProcessVerticalMovement();
   }
 
   private void MoveForwards()
@@ -77,7 +74,8 @@ public class PlayerMovement : MonoBehaviour
     // Return if the player is already jumping
     // Checks by calculating the player's Y position of the transform 
     if (!isGrounded) { return; }
-    rb.AddForce(transform.up * jumpSpeed, ForceMode.VelocityChange);
+    isGrounded = false;
+    rb.AddForce(transform.up * jumpSpeed, ForceMode.Impulse);
   }
 
   public void OnMove(InputValue input)
@@ -86,6 +84,16 @@ public class PlayerMovement : MonoBehaviour
     Vector2 xInput = input.Get<Vector2>();
     // Set sidewardVector and sidewardDirection based on the player's forward direction
     SetSidewardDirection(xInput);
+  }
+
+  public void ProcessVerticalMovement()
+  {
+    if (this.gameObject.transform.position.y < -1)
+      gameManager.LoseGame();
+    if (this.gameObject.transform.position.y < 1.1 && this.gameObject.transform.position.y > 0)
+      isGrounded = true;
+    if (this.gameObject.transform.position.y > 1.2)
+      isGrounded = false;
   }
 
   public void OnRotateRight()
