@@ -40,6 +40,7 @@
      <Compile Include="Assets\Imphenzia\GradientSky\Scripts\GradientSkyCamera.cs" />
      <Compile Include="Assets\Imphenzia\GradientSky\Scripts\GradientSkyObject.cs" />
      <Compile Include="Assets\Scripts\Controls.cs" />
+     <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\LogicGateMover.cs" />
      <Compile Include="Assets\Scripts\LogicGateSpinner.cs" />
      <Compile Include="Assets\Scripts\MenuController.cs" />
@@ -596,6 +597,9 @@
     <Reference Include="Unity.Timeline.Editor">
         <HintPath>E:/Unity Games/Obj-Runner/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Cinemachine">
+        <HintPath>E:/Unity Games/Obj-Runner/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VSCode.Editor">
         <HintPath>E:/Unity Games/Obj-Runner/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
@@ -616,6 +620,9 @@
     </Reference>
     <Reference Include="Unity.Rider.Editor">
         <HintPath>E:/Unity Games/Obj-Runner/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+        <HintPath>E:/Unity Games/Obj-Runner/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
         <HintPath>E:/Unity Games/Obj-Runner/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>

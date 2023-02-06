@@ -13,17 +13,25 @@ public class PathGenerator : MonoBehaviour
   [SerializeField] GameObject path;
   [SerializeField] GameObject[] platforms;
   [SerializeField] GameObject[] obstacles;
+  [SerializeField] GameObject finalPlatform;
   private GameObject PathTraveller;
   public int numOfPlatformsToGenerate = 20;
   private Vector3 obstacleVector = new Vector3(0, 1, 0);
   private int currentPathCount = 0;
   private int pathsLeftToGenerate;
 
+  private bool stopGeneratingPath = false;
+
   public void Start()
   {
     // Call generate path at Start
     pathsLeftToGenerate = numOfPlatformsToGenerate - currentPathCount;
     GeneratePath();
+  }
+
+  private void Update()
+  {
+    UpdatePath();
   }
 
   public void GeneratePath()
@@ -37,11 +45,14 @@ public class PathGenerator : MonoBehaviour
 
   public void LoopToGeneratePath(int numPath)
   {
+    if (stopGeneratingPath == true) { return; }
     for (int i = 0; i < numPath; i++)
     {
       // Get unique platform index from platform types (0 to last index) in the prefabs 
       int platformIndex = Random.Range(0, platforms.Length);
-      if (((i == 0) && platforms[platformIndex].tag == "platformTSection") || (i == 1) && platforms[platformIndex].tag == "platformTSection")
+      if (((i == 0) && (platforms[platformIndex].tag == "platformTSection")) ||
+        (i == 1) && (platforms[platformIndex].tag == "platformTSection") ||
+        (i == numPath - 1) && (platforms[platformIndex].tag == "platformTSection"))
       {
         LoopToGeneratePath(pathsLeftToGenerate);
         break;
@@ -52,14 +63,8 @@ public class PathGenerator : MonoBehaviour
       currentPlatform.transform.parent = path.transform;
 
       // Add obstacles on platforms of platformZ type
-
-      if (platforms[platformIndex].tag == "platformZ")
+      if (platforms[platformIndex].tag == "platformZ" && i != 0)
       {
-        if (i == 0)
-        {
-          LoopToGeneratePath(pathsLeftToGenerate);
-          break;
-        }
         int obstacleIndex = Random.Range(0, obstacles.Length);
         PathTraveller.transform.position += obstacleVector;
         GameObject logicGate = Instantiate(obstacles[obstacleIndex], PathTraveller.transform.position, PathTraveller.transform.rotation);
@@ -79,9 +84,18 @@ public class PathGenerator : MonoBehaviour
       PathTraveller.transform.Translate(Vector3.forward * -10);
     }
   }
-  public void SetAngleToRotateByPath(float angle)
+
+  public void UpdatePath()
   {
     pathsLeftToGenerate = numOfPlatformsToGenerate - currentPathCount;
+    if (currentPathCount >= numOfPlatformsToGenerate && stopGeneratingPath == false)
+    {
+      GameObject finalPlatformOnPath = Instantiate(finalPlatform, PathTraveller.transform.position, PathTraveller.transform.rotation);
+      stopGeneratingPath = true;
+    }
+  }
+  public void SetAngleToRotateByPath(float angle)
+  {
     PathTraveller.transform.Rotate(new Vector3(0, angle, 0));
     PathTraveller.transform.Translate(Vector3.forward * -10);
     LoopToGeneratePath(pathsLeftToGenerate);

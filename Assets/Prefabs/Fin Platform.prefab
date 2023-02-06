@@ -213,6 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7766631736328753419}
   - component: {fileID: 7766631736328358811}
+  - component: {fileID: 6262387369889091908}
   m_Layer: 0
   m_Name: Fin Platform
   m_TagString: Finish
@@ -256,11 +257,24 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7766631736328391979}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 5.0359116, y: 1, z: 10.082711}
   m_Center: {x: 0.00544103, y: 0, z: -0.0050349236}
+--- !u!135 &6262387369889091908
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7766631736328391979}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7766631736328391981
 GameObject:
   m_ObjectHideFlags: 0
