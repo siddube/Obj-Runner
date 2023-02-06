@@ -16,6 +16,14 @@ public class PlayerCollision : MonoBehaviour
   {
     playerMovement = this.GetComponent<PlayerMovement>();
   }
+
+  public void OnCollisionEnter(Collision other)
+  {
+    if (other.gameObject.tag == "Obstacle")
+    {
+      gameManager.LoseGame();
+    }
+  }
   public void OnTriggerEnter(Collider other)
   {
     if (other.tag == "platformTSection" && other is SphereCollider)
@@ -23,7 +31,7 @@ public class PlayerCollision : MonoBehaviour
 
     if (other.tag == "Finish" && other is SphereCollider)
     {
-      gameManager.ResartGame();
+      gameManager.WinGame();
     }
   }
 

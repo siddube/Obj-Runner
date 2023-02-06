@@ -10,6 +10,7 @@ TagManager:
   - platformZThin
   - initPlatform
   - Start
+  - Obstacle
   layers:
   - Default
   - TransparentFX

@@ -17,6 +17,11 @@ public class GameManager : MonoBehaviour
 
   }
 
+  public void WinGame()
+  {
+    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+  }
+
   public void ResartGame()
   {
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
