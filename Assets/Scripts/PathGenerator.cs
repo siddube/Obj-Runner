@@ -50,9 +50,7 @@ public class PathGenerator : MonoBehaviour
     {
       // Get unique platform index from platform types (0 to last index) in the prefabs 
       int platformIndex = Random.Range(0, platforms.Length);
-      if (((i == 0) && (platforms[platformIndex].tag == "platformTSection")) ||
-        (i == 1) && (platforms[platformIndex].tag == "platformTSection") ||
-        (i == numPath - 1) && (platforms[platformIndex].tag == "platformTSection"))
+      if (((i == 0) || (i == 1) || (i == numPath - 1)) && (platforms[platformIndex].tag == "platformTSection"))
       {
         LoopToGeneratePath(pathsLeftToGenerate);
         break;
@@ -90,6 +88,13 @@ public class PathGenerator : MonoBehaviour
     pathsLeftToGenerate = numOfPlatformsToGenerate - currentPathCount;
     if (currentPathCount >= numOfPlatformsToGenerate && stopGeneratingPath == false)
     {
+      Transform lastChild = path.transform.GetChild(path.transform.childCount - 1);
+      GameObject lastChildObject = lastChild.gameObject;
+      if (lastChildObject.tag == "platformTSection")
+      {
+        Destroy(lastChildObject);
+      }
+
       GameObject finalPlatformOnPath = Instantiate(finalPlatform, PathTraveller.transform.position, PathTraveller.transform.rotation);
       stopGeneratingPath = true;
     }
@@ -97,7 +102,7 @@ public class PathGenerator : MonoBehaviour
   public void SetAngleToRotateByPath(float angle)
   {
     PathTraveller.transform.Rotate(new Vector3(0, angle, 0));
-    PathTraveller.transform.Translate(Vector3.forward * -10);
+    PathTraveller.transform.Translate(Vector3.forward * -25);
     LoopToGeneratePath(pathsLeftToGenerate);
   }
 }
