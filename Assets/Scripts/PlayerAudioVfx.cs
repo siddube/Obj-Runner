@@ -12,7 +12,9 @@ public class PlayerAudioVfx : MonoBehaviour
   [SerializeField] ParticleSystem trailParticles;
   [SerializeField] ParticleSystem collisionParticles;
   [SerializeField] ParticleSystem successParticles;
-
+  [SerializeField] AudioSource audioSource;
+  [SerializeField] AudioClip collisionClip;
+  [SerializeField] AudioClip successClip;
   private void Start()
   {
     collisionParticles.Pause();
@@ -27,6 +29,7 @@ public class PlayerAudioVfx : MonoBehaviour
 
   public void playCollisionVfx()
   {
+    audioSource.PlayOneShot(collisionClip, 1.0f);
     this.gameObject.GetComponent<Renderer>().enabled = false;
     collisionParticles.Play();
     trailParticles.Clear();
@@ -35,6 +38,7 @@ public class PlayerAudioVfx : MonoBehaviour
 
   public void playSucessVfx()
   {
+    audioSource.PlayOneShot(successClip, 1.0f);
     successParticles.Play();
     trailParticles.Clear();
     trailParticles.Stop();

@@ -11,6 +11,7 @@ TagManager:
   - initPlatform
   - Start
   - Obstacle
+  - GameManager
   layers:
   - Default
   - TransparentFX
