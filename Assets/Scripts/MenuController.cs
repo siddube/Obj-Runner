@@ -16,11 +16,25 @@ public class MenuController : MonoBehaviour
   [SerializeField] GameObject menuPanel;
   [SerializeField] GameObject controlsPanel;
   [SerializeField] GameObject creditsPanel;
+  [SerializeField] GameObject backButton;
+  [SerializeField] AudioSource audioSource;
+  [SerializeField] AudioClip moveClip;
+  [SerializeField] AudioClip selectClip;
 
   // On Click Play Button
   public void PlayGame()
   {
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+  }
+
+  public void MoveButton()
+  {
+    audioSource.PlayOneShot(moveClip, 1.0f);
+  }
+
+  public void selectButton()
+  {
+    audioSource.PlayOneShot(selectClip, 1.0f);
   }
 
   // Show Main Menu
@@ -45,6 +59,7 @@ public class MenuController : MonoBehaviour
     ToggleMenuPanels(menuPanel);
   }
 
+
   // On Click Quit Button
   public void QuitGame()
   {
@@ -60,7 +75,10 @@ public class MenuController : MonoBehaviour
     menuPanel.gameObject.SetActive(false);
     controlsPanel.gameObject.SetActive(false);
     creditsPanel.gameObject.SetActive(false);
-
+    if (currentPanel != menuPanel)
+      backButton.gameObject.SetActive(true);
+    else
+      backButton.gameObject.SetActive(false);
     currentPanel.gameObject.SetActive(true);
   }
 
