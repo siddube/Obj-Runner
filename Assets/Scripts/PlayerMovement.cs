@@ -96,6 +96,11 @@ public class PlayerMovement : MonoBehaviour
       isGrounded = false;
   }
 
+  public void shootOnWin()
+  {
+    this.gameObject.transform.Translate(Vector3.forward * -1 * forwardSpeed * 100);
+  }
+
   public void OnRotateRight()
   {
     ProcessRotation(-90f, "right");

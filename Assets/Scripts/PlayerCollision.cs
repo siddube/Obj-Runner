@@ -11,17 +11,21 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
   public PlayerMovement playerMovement;
+  public PlayerAudioVfx playerAudioVfx;
   public GameManager gameManager;
+  private IEnumerator coroutine;
   private void Start()
   {
     playerMovement = this.GetComponent<PlayerMovement>();
+    playerAudioVfx = this.GetComponent<PlayerAudioVfx>();
   }
 
   public void OnCollisionEnter(Collision other)
   {
     if (other.gameObject.tag == "Obstacle")
     {
-      gameManager.LoseGame();
+      playerAudioVfx.playCollisionVfx();
+      coroutine = LoseGame(2.0f);
     }
   }
   public void OnTriggerEnter(Collider other)
@@ -31,7 +35,9 @@ public class PlayerCollision : MonoBehaviour
 
     if (other.tag == "Finish" && other is SphereCollider)
     {
-      gameManager.WinGame();
+      playerAudioVfx.playSucessVfx();
+      playerMovement.shootOnWin();
+      coroutine = WinGame(3.0f);
     }
   }
 
@@ -43,4 +49,16 @@ public class PlayerCollision : MonoBehaviour
       playerMovement.didRotate = false;
     }
   }
+
+  private IEnumerator LoseGame(float waitTime)
+  {
+    yield return new WaitForSeconds(waitTime);
+    gameManager.LoseGame();
+  }
+  private IEnumerator WinGame(float waitTime)
+  {
+    yield return new WaitForSeconds(waitTime);
+    gameManager.WinGame();
+  }
+
 }
