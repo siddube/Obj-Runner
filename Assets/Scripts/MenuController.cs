@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class MenuController : MonoBehaviour
 {
@@ -32,7 +32,7 @@ public class MenuController : MonoBehaviour
     audioSource.PlayOneShot(moveClip, 1.0f);
   }
 
-  public void selectButton()
+  public void SelectButton()
   {
     audioSource.PlayOneShot(selectClip, 1.0f);
   }
@@ -58,13 +58,17 @@ public class MenuController : MonoBehaviour
   {
     ToggleMenuPanels(menuPanel);
   }
-
-
   // On Click Quit Button
   public void QuitGame()
   {
     Debug.Log("Quit Game!");
     Application.Quit();
+  }
+
+  public void OnGoBackToMenu()
+  {
+    ShowMenu();
+    SelectButton();
   }
 
   /* =======================================================================================================

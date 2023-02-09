@@ -91,7 +91,7 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""path"": """",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -141,6 +141,33 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Menu"",
+            ""id"": ""427eaca8-2237-433d-b829-d221115ed356"",
+            ""actions"": [
+                {
+                    ""name"": ""GoBackToMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""89d57ea6-1da0-4ba4-b31a-c6c30de24a0c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""ff3971a3-d9fc-4ab8-9e5d-ca45f77762f7"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""GoBackToMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -168,6 +195,9 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_RotateRight = m_Player.FindAction("RotateRight", throwIfNotFound: true);
         m_Player_RotateLeft = m_Player.FindAction("RotateLeft", throwIfNotFound: true);
+        // Menu
+        m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+        m_Menu_GoBackToMenu = m_Menu.FindAction("GoBackToMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -270,6 +300,39 @@ public class @Controls : IInputActionCollection, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Menu
+    private readonly InputActionMap m_Menu;
+    private IMenuActions m_MenuActionsCallbackInterface;
+    private readonly InputAction m_Menu_GoBackToMenu;
+    public struct MenuActions
+    {
+        private @Controls m_Wrapper;
+        public MenuActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @GoBackToMenu => m_Wrapper.m_Menu_GoBackToMenu;
+        public InputActionMap Get() { return m_Wrapper.m_Menu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+        public void SetCallbacks(IMenuActions instance)
+        {
+            if (m_Wrapper.m_MenuActionsCallbackInterface != null)
+            {
+                @GoBackToMenu.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnGoBackToMenu;
+                @GoBackToMenu.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnGoBackToMenu;
+                @GoBackToMenu.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnGoBackToMenu;
+            }
+            m_Wrapper.m_MenuActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @GoBackToMenu.started += instance.OnGoBackToMenu;
+                @GoBackToMenu.performed += instance.OnGoBackToMenu;
+                @GoBackToMenu.canceled += instance.OnGoBackToMenu;
+            }
+        }
+    }
+    public MenuActions @Menu => new MenuActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -285,5 +348,9 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnRotateRight(InputAction.CallbackContext context);
         void OnRotateLeft(InputAction.CallbackContext context);
+    }
+    public interface IMenuActions
+    {
+        void OnGoBackToMenu(InputAction.CallbackContext context);
     }
 }

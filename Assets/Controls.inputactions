@@ -78,7 +78,7 @@
                     "path": "",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard & Mouse",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -124,6 +124,33 @@
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "RotateLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Menu",
+            "id": "427eaca8-2237-433d-b829-d221115ed356",
+            "actions": [
+                {
+                    "name": "GoBackToMenu",
+                    "type": "Button",
+                    "id": "89d57ea6-1da0-4ba4-b31a-c6c30de24a0c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ff3971a3-d9fc-4ab8-9e5d-ca45f77762f7",
+                    "path": "<Keyboard>/backspace",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "GoBackToMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
