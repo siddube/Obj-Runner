@@ -11,7 +11,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-  public GameManager gameManager;
   [SerializeField] PathGenerator path;
   [SerializeField] float sidewardSpeed = 1f;
   [SerializeField] float jumpSpeed = 1f;
@@ -19,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
   public Rigidbody rb;
   public bool canRotate = false;
   public bool didRotate = false;
-
+  public bool isAlive = true;
   private bool isGrounded = true;
 
   private Vector3 sidewardVector = new Vector3(0f, 0f, 0f);
@@ -34,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
   {
     // Setup rigidbody component
     SetupRigdbody();
-
   }
 
   private void FixedUpdate()
@@ -63,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
   private void MoveForwards()
   {
+    if (!isAlive) { return; }
     // Add constant forward vector
     // Multiply by -1 as we move in -ve z axis
     this.gameObject.transform.Translate(Vector3.forward * -1 * forwardSpeed);
@@ -89,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
   public void ProcessVerticalMovement()
   {
     if (this.gameObject.transform.position.y < -1)
-      gameManager.LoseGame();
+      isAlive = false;
     if (this.gameObject.transform.position.y < 1.1 && this.gameObject.transform.position.y > 0)
       isGrounded = true;
     if (this.gameObject.transform.position.y > 1.2)

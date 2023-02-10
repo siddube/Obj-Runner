@@ -12,8 +12,7 @@ public class PlayerCollision : MonoBehaviour
 {
   public PlayerMovement playerMovement;
   public PlayerAudioVfx playerAudioVfx;
-  public GameManager gameManager;
-  private IEnumerator coroutine;
+  public string gameStatus = "GAME OVER";
   private void Start()
   {
     playerMovement = this.GetComponent<PlayerMovement>();
@@ -24,8 +23,9 @@ public class PlayerCollision : MonoBehaviour
   {
     if (other.gameObject.tag == "Obstacle")
     {
+      playerMovement.isAlive = false;
+      gameStatus = "GAME OVER";
       playerAudioVfx.playCollisionVfx();
-      coroutine = LoseGame(2.0f);
     }
   }
   public void OnTriggerEnter(Collider other)
@@ -35,9 +35,10 @@ public class PlayerCollision : MonoBehaviour
 
     if (other.tag == "Finish" && other is SphereCollider)
     {
+      playerMovement.isAlive = false;
+      gameStatus = "LEVEL COMPLETE";
       playerAudioVfx.playSucessVfx();
       playerMovement.shootOnWin();
-      coroutine = WinGame(3.0f);
     }
   }
 
@@ -49,16 +50,4 @@ public class PlayerCollision : MonoBehaviour
       playerMovement.didRotate = false;
     }
   }
-
-  private IEnumerator LoseGame(float waitTime)
-  {
-    yield return new WaitForSeconds(waitTime);
-    gameManager.LoseGame();
-  }
-  private IEnumerator WinGame(float waitTime)
-  {
-    yield return new WaitForSeconds(waitTime);
-    gameManager.WinGame();
-  }
-
 }

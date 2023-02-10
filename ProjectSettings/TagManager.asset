@@ -12,6 +12,8 @@ TagManager:
   - Start
   - Obstacle
   - GameManager
+  - Canvas
+  - BG Music
   layers:
   - Default
   - TransparentFX

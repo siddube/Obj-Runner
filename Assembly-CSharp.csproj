@@ -40,7 +40,8 @@
      <Compile Include="Assets\Imphenzia\GradientSky\Scripts\GradientSkyCamera.cs" />
      <Compile Include="Assets\Imphenzia\GradientSky\Scripts\GradientSkyObject.cs" />
      <Compile Include="Assets\Scripts\Controls.cs" />
-     <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\DontDestroy.cs" />
+     <Compile Include="Assets\Scripts\LevelMenuController.cs" />
      <Compile Include="Assets\Scripts\LogicGateMover.cs" />
      <Compile Include="Assets\Scripts\LogicGateSpinner.cs" />
      <Compile Include="Assets\Scripts\MenuController.cs" />
