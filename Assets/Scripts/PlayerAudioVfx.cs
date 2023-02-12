@@ -19,7 +19,7 @@ public class PlayerAudioVfx : MonoBehaviour
 
   // Class Methods
   // Start Method
-  private void Start()
+  private void Awake()
   {
     // Pause the emitting of collision and success particles 
     collisionParticles.Pause();
