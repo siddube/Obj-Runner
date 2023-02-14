@@ -19,9 +19,10 @@ public class LevelMenuController : MonoBehaviour
   [SerializeField] AudioClip moveClip; // Reference to move sound clip
   [SerializeField] AudioClip selectClip; // Reference to select sound clip
   [SerializeField] TMPro.TextMeshProUGUI statusTitle; // Reference to text mesh pro UI text
-
+  [SerializeField] TMPro.TextMeshProUGUI countdownText; // Reference to countdown panel gameobject
   public bool isPlayerAlive = true; // Bool used to access player alive/ active status from player game object
   public string statusTitleText = "GAME OVER"; // String used to set text in UI after player loses or wins the game
+  public float startTimeRemaining = 4f; // Float used to calculate and display timer countdown to start game
 
   // Class Methods
   // Start Method
@@ -30,11 +31,16 @@ public class LevelMenuController : MonoBehaviour
     // Get reference to script components from player game object
     playerMovement = playerMovement.GetComponent<PlayerMovement>();
     playerCollision = playerCollision.GetComponent<PlayerCollision>();
+
+    // Display countdown text
+    countdownText.enabled = true;
   }
 
   // Update Method
   private void Update()
   {
+    // Start timer to play the game
+    ClockGameStartTImer();
     // Check if player is still alive
     isPlayerAlive = playerMovement.isAlive;
 
@@ -47,6 +53,36 @@ public class LevelMenuController : MonoBehaviour
       ShowMenu();
     else
       HideMenu();
+  }
+
+  // Clock Game Start TImer
+  // Used to clock start timer
+  public void ClockGameStartTImer()
+  {
+    // Check if 3 seconds have passed
+    if (startTimeRemaining > 0)
+    {
+      // Subtract 1 second from timer
+      startTimeRemaining -= Time.deltaTime;
+
+      // Update timer text with appropriate number of seconds left
+      countdownText.GetComponent<TMPro.TextMeshProUGUI>().text = (Mathf.FloorToInt(startTimeRemaining)).ToString();
+
+      // When timer hits 0, start to move player forwards and display "GO!"
+      if ((Mathf.FloorToInt(startTimeRemaining)) == 0)
+      {
+        // Display "Go!"
+        countdownText.GetComponent<TMPro.TextMeshProUGUI>().text = "GO!";
+
+        // Set canMove property on Player Movement Class to true
+        playerMovement.canMove = true;
+      }
+    }
+    else
+    {
+      // After countdown ends, disable the countdown text
+      countdownText.enabled = false;
+    }
   }
 
   // Play Again Method
@@ -71,7 +107,6 @@ public class LevelMenuController : MonoBehaviour
   {
     // Set level menu panel gameobject to true
     levelMenuPanel.SetActive(true);
-
     // Set status title of text mesh pro component on UI
     statusTitle.GetComponent<TMPro.TextMeshProUGUI>().text = statusTitleText;
   }

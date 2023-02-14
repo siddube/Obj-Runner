@@ -10,6 +10,7 @@ using UnityEngine;
 public class PlayerAudioVfx : MonoBehaviour
 {
   // Class properties
+  public PlayerMovement playerMovement; // Reference to Player Movement Class
   [SerializeField] ParticleSystem trailParticles; // Reference to trail particle fx
   [SerializeField] ParticleSystem collisionParticles; // Reference to collision particle fx
   [SerializeField] ParticleSystem successParticles; // Reference to success particle fx
@@ -18,12 +19,31 @@ public class PlayerAudioVfx : MonoBehaviour
   [SerializeField] AudioClip successClip; // Reference to success sound clip
 
   // Class Methods
-  // Start Method
+  // Awake Method
   private void Awake()
   {
-    // Pause the emitting of collision and success particles 
+    // Pause the emitting of trail, collision and success particles 
     collisionParticles.Pause();
     successParticles.Pause();
+    trailParticles.Pause();
+  }
+
+  // Start Method
+  private void Start()
+  {
+    // Get reference to script components from player game object
+    playerMovement = this.GetComponent<PlayerMovement>();
+  }
+
+  // Update Method
+  private void Update()
+  {
+    // If the player can move after countdown start playing trail paricles
+    if (playerMovement.canMove == true)
+    {
+      // Play partices
+      trailParticles.Play();
+    }
   }
 
   // Play Collission Vfx Method

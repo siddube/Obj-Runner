@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
   public bool didRotate = false; // Bool to denote if player did rotate and prevent more than one rotation inside T section platform sphere collider
   public bool isAlive = true; // Bool to move player and stop player movement if the level ended
   private bool isGrounded = true; // Bool to check if the player is grounded or jumping
+  public bool canMove = false; // Bool to check if player can move forward
 
   private Vector3 sidewardVector = new Vector3(0f, 0f, 0f); // Vector for left and right sidewards movement
 
@@ -80,7 +81,8 @@ public class PlayerMovement : MonoBehaviour
   private void MoveForwards()
   {
     // If isAlive property is false stop moving player forwards
-    if (!isAlive) { return; }
+    // Only move forward after countdown stops and game starts handled by canMoveForwad
+    if (!isAlive || !canMove) { return; }
 
     // Add constant forward vector
     // Multiply by -1 as we move in -ve z axis
@@ -107,6 +109,9 @@ public class PlayerMovement : MonoBehaviour
   // Called on pressing spacebar as input
   public void OnJump()
   {
+    // Allow movement from input after game starts and canMove property is true
+    if (!canMove) { return; }
+
     // Jump on pressing Spacebar on keyboard
     // Return if the player is already jumping
     if (!isGrounded) { return; }
@@ -122,6 +127,8 @@ public class PlayerMovement : MonoBehaviour
   // Called on pressing left and right arrow as input
   public void OnMove(InputValue input)
   {
+    // Allow movement from input after game starts and canMove property is true
+    if (!canMove) { return; }
     // Get a Vector2 value of input controls
     Vector2 xInput = input.Get<Vector2>();
     // Set sidewardVector and sideward position
