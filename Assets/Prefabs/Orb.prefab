@@ -160,14 +160,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c119d632c303ec54c87ac1649a606ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
   path: {fileID: 0}
-  sidewardSpeed: 20
+  sidewardSpeed: 15
   jumpSpeed: 6
   forwardSpeed: 0.2
   rb: {fileID: 2717535288083918468}
   canRotate: 0
   didRotate: 0
+  isAlive: 1
+  canMove: 0
 --- !u!114 &6374383793456929445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 2717535288083918491}
   playerAudioVfx: {fileID: 0}
-  gameManager: {fileID: 0}
+  gameStatus: GAME OVER
 --- !u!114 &1053999855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,8 +196,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217e4993f9ffcd8459875c83bdaa7006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionParticles: {fileID: 6129563443794514357}
+  playerMovement: {fileID: 0}
   trailParticles: {fileID: 2134529283677581003}
+  collisionParticles: {fileID: 6129563443794514357}
+  successParticles: {fileID: 0}
+  audioSource: {fileID: 0}
+  collisionClip: {fileID: 0}
+  successClip: {fileID: 0}
 --- !u!1001 &496922759749498328
 PrefabInstance:
   m_ObjectHideFlags: 0
