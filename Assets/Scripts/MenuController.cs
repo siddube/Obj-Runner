@@ -15,6 +15,7 @@ public class MenuController : MonoBehaviour
   // Class properties
   [SerializeField] GameObject menuPanel; // Reference to main menu panel gameobject
   [SerializeField] GameObject controlsPanel; // Reference to controls menu panel gameobject
+  [SerializeField] GameObject tutorialPanel; // Reference to credits tutorial panel gameobject
   [SerializeField] GameObject creditsPanel; // Reference to credits menu panel gameobject
   [SerializeField] GameObject backButton; // Reference to back button gameobject on the menu
   [SerializeField] AudioSource audioSource; // Reference to audio source component
@@ -59,6 +60,13 @@ public class MenuController : MonoBehaviour
   {
     // Use helper function to hide all other panels and show game controls panel
     ToggleMenuPanels(controlsPanel);
+  }
+
+  // Show Tutorial Method
+  // Called to show game tutorials by clicking controls button
+  public void ShowTutorial()
+  {
+    ToggleMenuPanels(tutorialPanel);
   }
 
   // Show Credits Method
@@ -107,6 +115,7 @@ public class MenuController : MonoBehaviour
     // Hide menu and all the sub menus 
     menuPanel.gameObject.SetActive(false);
     controlsPanel.gameObject.SetActive(false);
+    tutorialPanel.gameObject.SetActive(false);
     creditsPanel.gameObject.SetActive(false);
 
     // Show back button when on a sub menu
